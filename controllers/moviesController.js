@@ -9,12 +9,22 @@ function index(req, res) {
 
     const sql = 'SELECT * FROM movies';
 
-    connection.query(sql, (err, results) => {
+    connection.query(sql, (err, result) => {
         if (err) {
             console.error('Database query failed:', err);
             return res.status(500).json({ error: 'Database query failed' });
         }
-        res.json(results);
+
+        // mappa i risultati e aggiungi il percorso dell'immagine
+        const books = result.map(book => {
+            return {
+                ...book,
+                image: req.imagePath + book.image
+            }
+        })
+
+        // restituisci il movie in formato json
+        res.json(result);
     });
 }
 
