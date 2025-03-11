@@ -3,10 +3,12 @@ const express = require('express')
 // crea l'istanza dell'applicazione express
 const app = express()
 // definisci la porta da utilizzare
-const port = 3000
+const port = process.env.PORT
 
-// importiamo il roputer delle pizze
+
+// importiamo il router
 const moviesRouter = require('./routers/movies');
+
 
 //importa middleware notFound
 const notFound = require('./middlewares/errorHandler')
@@ -16,18 +18,15 @@ const handleErrors = require('./middlewares/errorHandler')
 const imagePath = require('./middlewares/imagePath');
 
 
+
+
 // definisci l'uso di una cartella per i file statici
 app.use(express.static('public'));
-
-
-// registro il middleware di path imgs
-app.use(imagePath);
 
 // definiamo la rotta home
 app.get('/api', (req, res) => {
     res.send("Ciao sono la rotta Home");
 })
-
 
 // utilizziamo la rotta dei libri andando a definire la parte iniziale delle rotte
 app.use("/api/movies", moviesRouter)
@@ -39,12 +38,13 @@ app.use(express.json());
 
 // utilizza middleware handleErrors
 app.use(handleErrors);
-
 // utilizza middlewares notFOund
 app.use(notFound);
+// registro il middleware di path imgs
+app.use(imagePath);
 
 
-// avvia l server e mettilo in ascolto sulla porta selezionata
+// avvia il server e mettilo in ascolto sulla porta selezionata
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
