@@ -56,6 +56,9 @@ function show(req, res) {
             // aggiorniamo l'oggetto book con le review ritornate
             movie.reviews = reviewResult;
 
+            //aggiorna il percorso dell'immagine
+            movie.image = req.imagePath + movie.image
+
             // ritorniamo l'oggetto completo
             res.json(movie);
         });

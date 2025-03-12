@@ -26,14 +26,16 @@ const imagePath = require('./middlewares/imagePath');
 //usa cors
 app.use(cors({ origin: process.env.FE_APP }));
 
+// registro il middleware di path imgs
+app.use(imagePath);
+
+
 // definisci l'uso di una cartella per i file statici
 app.use(express.static('public'));
 
 // definisci l'uso del body-parser express per "application/JSON"
 app.use(express.json());
 
-// registro il middleware di path imgs
-app.use(imagePath);
 
 // definiamo la rotta home
 app.get('/api', (req, res) => {
