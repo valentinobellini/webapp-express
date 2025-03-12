@@ -6,6 +6,11 @@ const app = express()
 const port = process.env.PORT
 
 
+// importa cors
+const cors = require('cors');
+
+
+
 // importiamo il router
 const moviesRouter = require('./routers/movies');
 
@@ -18,10 +23,17 @@ const handleErrors = require('./middlewares/errorHandler')
 const imagePath = require('./middlewares/imagePath');
 
 
-
+//usa cors
+app.use(cors({ origin: process.env.FE_APP }));
 
 // definisci l'uso di una cartella per i file statici
 app.use(express.static('public'));
+
+// definisci l'uso del body-parser express per "application/JSON"
+app.use(express.json());
+
+// registro il middleware di path imgs
+app.use(imagePath);
 
 // definiamo la rotta home
 app.get('/api', (req, res) => {
@@ -32,16 +44,13 @@ app.get('/api', (req, res) => {
 app.use("/api/movies", moviesRouter)
 
 
-// definisci l'uso del body-parser express per "application/JSON"
-app.use(express.json());
+
 
 
 // utilizza middleware handleErrors
 app.use(handleErrors);
 // utilizza middlewares notFOund
 app.use(notFound);
-// registro il middleware di path imgs
-app.use(imagePath);
 
 
 // avvia il server e mettilo in ascolto sulla porta selezionata
