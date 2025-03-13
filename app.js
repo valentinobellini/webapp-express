@@ -14,7 +14,6 @@ const cors = require('cors');
 // importiamo il router
 const moviesRouter = require('./routers/movies');
 
-
 //importa middleware notFound
 const notFound = require('./middlewares/errorHandler')
 //importa middleware handleErrors
