@@ -74,7 +74,7 @@ function insertReview(req, res) {
     const { text, name, vote } = req.body;
 
     // query per inserire la review
-    const insertReview = 'INSERT INTO reviews ( text, name, vote, movie_id) VALUES (?, ?, ?)';
+    const insertReview = 'INSERT INTO reviews ( text, name, vote, movie_id) VALUES (?, ?, ?, ?)';
 
     // esegui query
     connection.query(insertReview, [text, name, vote, id], (err, result) => {
